@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aula 04 - Vuej.js direitvas v-for</title>
+  <title>Aula 04 - Vuej.js diretiva v-for</title>
 </head>
 <body>
 
   <div id="app"> 
-    <h1>{{titulo}} </h1></div>
+    <h1>{{titulo}} </h1>
+    <ul>
+      <li v-for="(item, index) in linguagens">{{index}} - {{ item.nome }}</li>
+    </ul>
+  
+  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
@@ -16,7 +21,14 @@
     var app = new Vue ({
         el: "#app",
         data: {
-            titulo: "Aula 04 - v-for"
+            titulo: "Aula 04 - VueJS",
+            linguagens: [
+              {nome: "JavaScript"},
+              {nome: "PHP"},
+              {nome: "C#"},
+              {nome: "Java"},
+              {nome: "Python"}
+            ]
         }
     })
   </script>
