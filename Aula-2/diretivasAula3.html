@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 3 - Vue.js diretivas v-show v-if v-else</title>
+</head>
+<body>
+  <div id="app"> 
+    <h1 v-if="status">{{titulo}} </h1>
+     <div v-if="usuario.id == 1">
+            id: {{usuario.id}},<br>
+            nome: {{usuario.nome}} <br>
+            profissão: {{usuario.profissao}}
+        </div>
+        <div v-else>Nenhum usuario com id = a 1 impresso</div>
+
+        </div>
+
+   <!--<ul>
+        <li><span>v-if</span> só ira imprimir na tela caso a declaração for verdadeira
+        </li>
+        <li><span>v-show</span> parecido com v-if mas a diferença é ao usar v-if e atribui-lo como "false" ele não ira renderiar nem no codigo e nem na tela , já o v-show irá </li>
+        <li><span>v-else</span> será a mesma coisa do se não em logica de programação</li>
+    </ul>-->
+       
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            titulo: "Aula 03 - v-show v-if v-else",
+            usuario:{
+                id: 1,
+                nome: "jon lennor",
+                profissao: "ator"
+                        }
+
+        }
+    })
+  </script>
+  
+</body>
+</html>
