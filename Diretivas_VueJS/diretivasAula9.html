@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 9 - filters</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+  <div id="app"> 
+    <h1>{{ titulo }}</h1>
+    <ul>
+      <li v-for="usuario in usuarios" :key="usuario.nome">
+        {{ usuario.nome | toUpperCase }}
+      </li>
+    </ul>
+
+    <form action="http://google.com">
+      <button type="submit" class="btn btn-primary" v-on:click="enviar">ENVIAR</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: "#app",
+
+      data: {
+        titulo: "Aula 09 - VueJS",
+        usuarios: [
+          { nome: 'Jon Snow' },
+          { nome: 'Tyrion Lannister' },
+          { nome: 'Daenerys Targaryen' }
+        ]
+      },
+
+      filters: {
+        toUpperCase(str) {
+          return str.toUpperCase();
+        }
+      },
+
+      methods: {
+        enviar(event) {
+          alert('enviado!');
+        }
+      }
+    });
+  </script>
+  
+</body>
+</html>
