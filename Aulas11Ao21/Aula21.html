@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 21 - transições CSS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app" class="text-center mt-5">
+    <button @click="mostrar = !mostrar" class="btn btn-primary mb-3">
+      Mostrar / Esconder
+    </button>
+
+    <!-- Envolve o elemento com a tag <transition> -->
+    <transition name="fade">
+      <p v-if="mostrar" class="alert alert-success">
+        Eu apareço e sumo suavemente! 🍃
+      </p>
+    </transition>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        mostrar: true
+      }
+    });
+  </script>
+
+</body>
+</html>
