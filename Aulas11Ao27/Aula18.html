@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 18 - Vue.js 2.0 Ajax com vue-resource</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="app"> 
+    <br><br><br>
+
+    <div class="container">
+      <h1>{{ titulo }}</h1>
+      <button @click.stop.prevent="getUsers()" class="btn btn-primary">Get users</button>
+
+      <br><br><br>
+
+      <ul>
+        <li v-for="user in users">{{user.name}}</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+
+  <script>
+    var mixin = {
+      methods: {
+        getUsers() {
+          var url = 'https://jsonplaceholder.typicode.com/users';
+          this.$http.get(url).then(function(response) {
+            this.users = response.body;
+          });
+        }
+      }
+    }
+
+    new Vue({
+      el: "#app",
+      mixins: [mixin],
+      data: {
+        titulo: "Aula 18 - VueJS",
+        users: [],
+      }
+    });
+  </script>
+
+</body>
+</html>
