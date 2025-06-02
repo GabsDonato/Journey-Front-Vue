@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 20 - Vue.js 2 Atributos Especiais key, ref, slot, is</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="app" class="container py-5"> 
+    <!-- 🔑 key: usado para identificar elementos unicamente dentro de um v-for -->
+    <h4>Exemplo de v-for com key</h4>
+    <ul class="list-group mb-4">
+      <li class="list-group-item" v-for="item in items" :key="item.id">
+        {{ item.nome }} 
+      </li>
+    </ul>
+
+    <!-- 📌 ref: usado para acessar elementos diretamente via this.$refs -->
+    <h4>Exemplo de ref</h4>
+    <input ref="meuInput" type="text" class="form-control w-50 d-inline-block" placeholder="Clique no botão para focar">
+    <button class="btn btn-primary ms-2" @click="focarInput">Focar no input</button>
+
+    <hr>
+
+    <!-- 🎭 slot: conteúdo dinâmico enviado ao componente filho -->
+    <h4 class="mt-4">Exemplo de slot</h4>
+    <componente-com-slot>
+      <template slot="cabecalho">
+        <h5 class="text-success">Esse título foi passado do componente pai!</h5>
+      </template>
+    </componente-com-slot>
+
+    <hr>
+
+    <!-- 🧩 is: renderização dinâmica de componentes -->
+    <h4 class="mt-4">Exemplo de uso do atributo is</h4>
+    <select class="form-select w-50 mb-3" v-model="componenteAtual">
+      <option value="componente-a">Componente A</option>
+      <option value="componente-b">Componente B</option>
+    </select>
+    <component :is="componenteAtual"></component>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    // Componente com slot nomeado
+    Vue.component('componente-com-slot', {
+      template: `
+        <div class="border p-3">
+          <header>
+            <slot name="cabecalho"></slot>
+          </header>
+          <p>Conteúdo fixo dentro do componente filho</p>
+        </div>
+      `
+    });
+
+    // Componentes para uso com 'is'
+    Vue.component('componente-a', {
+      template: '<div class="alert alert-info">Você está vendo o Componente A</div>'
+    });
+
+    Vue.component('componente-b', {
+      template: '<div class="alert alert-warning">Agora você está vendo o Componente B</div>'
+    });
+
+    // App principal
+    new Vue({
+      el: "#app",
+      data: {
+        items: [
+          { id: 1, nome: "Gabriela" },
+          { id: 2, nome: "João" },
+          { id: 3, nome: "Maria" }
+        ],
+        componenteAtual: 'componente-a'
+      },
+      methods: {
+        focarInput() {
+          // 📌 Acessando o input diretamente usando ref
+          this.$refs.meuInput.focus();
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
