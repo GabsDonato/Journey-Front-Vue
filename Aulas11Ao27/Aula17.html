@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 17 - Vue.js 2.0 Mixins
+</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="app"> 
+    <br><br><br>
+
+    <div class="container">
+      <h1>{{ titulo }}</h1>
+      <button @click.stop.prevent="getUsers()" class="btn btn-primary">Get users</button>
+
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var mixin = {
+      methods: {
+        getUsers(){
+          //rotina de programação
+          //localizar usuarios
+
+          console.log('get users');
+        }
+
+      }
+    }
+
+    new Vue({
+      el: "#app",
+      mixins: [mixin],
+      data: {
+        titulo: "Aula 17 - VueJS"
+      },
+
+      methods: {
+        
+      }
+    });
+  </script>
+
+</body>
+</html>
