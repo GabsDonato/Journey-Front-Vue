@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Exemplo de Rotas com Vue.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router@3.5.4/dist/vue-router.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="app" class="container mt-5">
+    <h2 class="text-center">🌐 Meu site com Vue Router</h2>
+    <hr>
+    
+    <!-- Links para navegar -->
+    <nav>
+      <router-link to="/" class="btn btn-primary m-1">🏠 Início</router-link>
+      <router-link to="/sobre" class="btn btn-secondary m-1">ℹ️ Sobre</router-link>
+    </nav>
+
+    <hr>
+
+    <!-- Onde o conteúdo das rotas será mostrado -->
+    <router-view></router-view>
+  </div>
+
+  <script>
+    // Componente Home
+    const Home = {
+      template: '<div><h3>🏠 Bem-vindo à página inicial!</h3><p>Essa é a home do site.</p></div>'
+    };
+
+    // Componente Sobre
+    const Sobre = {
+      template: '<div><h3>ℹ️ Sobre</h3><p>Essa é a página sobre o site.</p></div>'
+    };
+
+    // Definindo as rotas
+    const routes = [
+      { path: '/', component: Home },
+      { path: '/sobre', component: Sobre }
+    ];
+
+    // Criando o roteador
+    var router = new VueRouter({
+      //tirar o # do caminho html  ou utilizando o atributo name: > to route
+      mode: 'history',
+      routes
+    });
+
+    // Criando a instância principal do Vue
+    new Vue({
+      el: '#app',
+      router
+    });
+  </script>
+</body>
+</html>
