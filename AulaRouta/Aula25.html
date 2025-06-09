@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js 2 - Navegação Automática</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@3"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>App com Navegação Automática</h1>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    const Home = {
+      template: `<div><h2>Home</h2><p>Redirecionando para dashboard em 3 segundos...</p></div>`,
+      mounted() {
+        setTimeout(() => {
+          this.$router.push('/dashboard')
+        }, 3000)
+      }
+    }
+
+    const Dashboard = {
+      template: `<div><h2>Dashboard</h2><p>Você chegou aqui automaticamente!</p></div>`
+    }
+
+    const router = new VueRouter({
+      mode: 'history',
+      routes: [
+        { path: '/', component: Home },
+        { path: '/dashboard', component: Dashboard }
+      ]
+    })
+
+    new Vue({
+      el: '#app',
+      router
+    })
+  </script>
+</body>
+</html>

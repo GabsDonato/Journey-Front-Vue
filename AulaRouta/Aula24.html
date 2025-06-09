@@ -2,58 +2,68 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Exemplo de Rotas com Vue.js</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  <script src="https://unpkg.com/vue-router@3.5.4/dist/vue-router.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Vue.js 2 - Sub-rotas e Parâmetros</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@3"></script>
 </head>
 <body>
-
-  <div id="app" class="container mt-5">
-    <h2 class="text-center">🌐 Meu site com Vue Router</h2>
-    <hr>
-    
-    <!-- Links para navegar -->
-    <nav>
-      <router-link to="/" class="btn btn-primary m-1">🏠 Início</router-link>
-      <router-link to="/sobre" class="btn btn-secondary m-1">ℹ️ Sobre</router-link>
-    </nav>
-
-    <hr>
-
-    <!-- Onde o conteúdo das rotas será mostrado -->
+  <div id="app">
+    <h1>Meu App Vue.js</h1>
+    <p>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/usuarios">Usuários</router-link>
+    </p>
     <router-view></router-view>
   </div>
 
   <script>
-    // Componente Home
+    // Componentes
     const Home = {
-      template: '<div><h3>🏠 Bem-vindo à página inicial!</h3><p>Essa é a home do site.</p></div>'
-    };
+      template: `<div><h2>Home</h2><p>Bem-vindo à página inicial!</p></div>`
+    }
 
-    // Componente Sobre
-    const Sobre = {
-      template: '<div><h3>ℹ️ Sobre</h3><p>Essa é a página sobre o site.</p></div>'
-    };
+    const Usuario = {
+      template: `
+        <div>
+          <h2>Usuários</h2>
+          <ul>
+            <li><router-link :to="'/usuarios/1'">Usuário 1</router-link></li>
+            <li><router-link :to="'/usuarios/2'">Usuário 2</router-link></li>
+          </ul>
+          <router-view></router-view> <!-- Aqui aparecem os detalhes -->
+        </div>
+      `
+    }
 
-    // Definindo as rotas
-    const routes = [
-      { path: '/', component: Home },
-      { path: '/sobre', component: Sobre }
-    ];
+    const UsuarioDetalhe = {
+      props: ['id'],
+      template: `<div><p>Detalhes do Usuário com ID: {{ id }}</p></div>`
+    }
 
-    // Criando o roteador
-    var router = new VueRouter({
-      //tirar o # do caminho html  ou utilizando o atributo name: > to route
+    // Roteador
+    const router = new VueRouter({
       mode: 'history',
-      routes
-    });
+      routes: [
+        { path: '/', component: Home },
+        {
+          path: '/usuarios',
+          component: Usuario,
+          children: [
+            {
+              path: ':id',
+              component: UsuarioDetalhe,
+              props: true
+            }
+          ]
+        }
+      ]
+    })
 
-    // Criando a instância principal do Vue
+    // Instância Vue
     new Vue({
       el: '#app',
       router
-    });
+    })
   </script>
 </body>
 </html>
