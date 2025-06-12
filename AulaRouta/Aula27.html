@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js 27 - Props Estáticas nas Rotas</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@3"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Props Estáticas via Rota</h1>
+    <router-link to="/mensagem">Ir para Mensagem</router-link>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    // Componente que recebe props
+    const Mensagem = {
+      props: ['titulo', 'texto'],
+      template: `
+        <div>
+          <h2>{{ titulo }}</h2>
+          <p>{{ texto }}</p>
+        </div>
+      `
+    }
+
+    // Configuração da rota com props estáticas
+    const router = new VueRouter({
+      mode: 'history',
+      routes: [
+        {
+          path: '/mensagem',
+          component: Mensagem,
+          props: {
+            titulo: 'Olá, Gabriela!',
+            texto: 'Essa mensagem foi passada pela rota usando props estáticas.'
+          }
+        }
+      ]
+    })
+
+    // Instância Vue
+    new Vue({
+      el: '#app',
+      router
+    })
+  </script>
+</body>
+</html>
