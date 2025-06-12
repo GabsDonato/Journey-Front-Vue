@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js 2 aula 26 - Redirecionamento e Rota Padrão</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@3"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Exemplo de Rotas</h1>
+    <p>
+      <router-link to="/">Início</router-link> |
+      <router-link to="/ajuda">Ajuda (Redireciona)</router-link> |
+      <router-link to="/qualquer-coisa">Rota Inexistente</router-link>
+    </p>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    // Componentes
+    const Home = {
+      template: `<div><h2>Início</h2><p>Bem-vindo ao app!</p></div>`
+    }
+
+    const Suporte = {
+      template: `<div><h2>Suporte</h2><p>Como podemos te ajudar?</p></div>`
+    }
+
+    const NotFound = {
+      template: `<div><h2>404</h2><p>Ops! Página não encontrada.</p></div>`
+    }
+
+    // Configuração do roteador
+    const router = new VueRouter({
+      mode: 'history',
+      routes: [
+        { path: '/', component: Home },
+
+        // Redirecionamento: /ajuda redireciona para /suporte
+        { path: '/ajuda', redirect: '/suporte' },
+        { path: '/suporte', component: Suporte },
+
+        // Rota padrão (pega qualquer caminho não definido)
+        { path: '*', component: NotFound }
+      ]
+    })
+
+    // Instância Vue
+    new Vue({
+      el: '#app',
+      router
+    })
+  </script>
+</body>
+</html>
